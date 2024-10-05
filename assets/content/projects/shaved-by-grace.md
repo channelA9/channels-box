@@ -2,7 +2,7 @@
 title: Shaved By Grace (Website)
 description: A custom made minimalist website that has a built-in reservation system and dashboard.
 createdAt: '08-01-2024'
-hero_image: /assets/images/shaved-by-grace-hero.webp
+hero_image: /images/shaved-by-grace-hero.webp
 id: shaved-by-grace
 stack: SolidJS,TailwindCSS,Vite,Cloudflare,Supabase
 viewLink: https://sbgice.com/
