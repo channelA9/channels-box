@@ -2,27 +2,24 @@ import { createSignal, onMount, For } from "solid-js";
 import * as matter from "gray-matter";
 import { BlogFrontmatter } from "../../types/MarkdownTypes";
 import dayjs from "dayjs";
+
 export default function Page() {
   const [posts, setPosts] = createSignal<BlogFrontmatter[]>([]);
 
   onMount(() => {
-    const postFiles = import.meta.glob<{ default: string }>(
-      `/assets/content/blogs/*.md`
-    );
+    const postFiles = import.meta.glob('/assets/content/blogs/*.md', { as: 'raw' });
 
     const postPromises = Object.keys(postFiles).map(async (path) => {
-      const file = await import(
-        /* @vite-ignore */
-        `/${path.substring(1, path.length - 3)}.md?raw`
-      );
-      const data = matter.default(file.default);
-      return { ...data.data, path } as BlogFrontmatter & { path: string };
+      const file = await postFiles[path]();
+      const data = matter.default(file);
+      return { ...data.data, path: path.replace('/assets/content/blogs/', '').replace('.md', '') } as BlogFrontmatter & { path: string };
     });
+
     Promise.all(postPromises).then((results) => {
       const sortedResults = results.sort(
         (resA, resB) =>
-          new Date(resA.createdAt).getUTCDay() -
-          new Date(resB.createdAt).getUTCDay()
+          new Date(resA.createdAt).getTime() -
+          new Date(resB.createdAt).getTime()
       );
       setPosts(sortedResults);
     });
@@ -46,6 +43,7 @@ export default function Page() {
     </>
   );
 }
+
 
 function Post(props: {
   name: string;

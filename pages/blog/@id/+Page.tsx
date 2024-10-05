@@ -10,40 +10,52 @@ import { BlogFrontmatter, EmptyTemplate } from "../../../types/MarkdownTypes";
 import { IoArrowBack } from "solid-icons/io";
 
 export default function Page() {
-  const articleId = getPageContext()?.routeParams.id;
   const [article, setArticle] = createSignal<{
     data: BlogFrontmatter;
     content: string;
   }>(EmptyTemplate);
 
-  onMount(async () => {
-    const articleFile = await import(
-      /* @vite-ignore */
-      `../../../assets/content/blogs/${articleId}.md?raw`
-    );
-    
+  const blogPosts = import.meta.glob(
+    "../../../assets/content/blogs/*.md",
+    { as: "raw" }
+  );
 
-    const parsedArticle = matter.default(articleFile.default);
-    setArticle({
-      data: {
-        title: parsedArticle.data.title,
-        description: parsedArticle.data.description,
-        createdAt: new Date(parsedArticle.data.createdAt),
-        author: parsedArticle.data.author,
-        hero_image: parsedArticle.data.hero_image,
-        from: parsedArticle.data.from,
-        id: parsedArticle.data.id,
-      },
-      content: parsedArticle.content
-    });
+  onMount(async () => {
+    const articleId = getPageContext()?.routeParams.id;
+
+    if (
+      articleId &&
+      blogPosts[`../../../assets/content/blogs/${articleId}.md`]
+    ) {
+      const articleFile =
+        await blogPosts[
+          `../../../assets/content/blogs/${articleId}.md`
+        ]();
+
+      const parsedArticle = matter.default(articleFile);
+      setArticle({
+        data: {
+          title: parsedArticle.data.title,
+          description: parsedArticle.data.description,
+          createdAt: new Date(parsedArticle.data.createdAt),
+          author: parsedArticle.data.author,
+          hero_image: parsedArticle.data.hero_image,
+          from: parsedArticle.data.from,
+          id: parsedArticle.data.id,
+        },
+        content: parsedArticle.content
+      });
+    } else {
+      console.error(`Project with id ${articleId} not found.`);
+    }
   });
 
   return (
     <div>
-      <a href="/blog" class="p-1 text-4xl absolute -translate-x-14 hover:animate-pulse"><IoArrowBack/></a>
-      <ArticleHero hero_image={article().data.hero_image} />
-      <ArticleTitle frontmatter={article().data} />
-      <Article content={article().content} />
-    </div>
+    <a href="/blog" class="p-1 text-4xl absolute -translate-x-14 hover:animate-pulse"><IoArrowBack/></a>
+    <ArticleHero hero_image={article().data.hero_image} />
+    <ArticleTitle frontmatter={article().data} />
+    <Article content={article().content} />
+  </div>
   );
 }

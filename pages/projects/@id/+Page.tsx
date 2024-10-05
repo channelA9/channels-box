@@ -18,33 +18,41 @@ export default function Page() {
     content: string;
   }>(EmptyTemplate);
 
-  const projectArticles = import.meta.glob('../../../assets/content/projects/*.md', { as: 'raw' });
+  const projectArticles = import.meta.glob(
+    "../../../assets/content/projects/*.md",
+    { as: "raw" }
+  );
 
-onMount(async () => {
-  const articleId = getPageContext()?.routeParams.id;
+  onMount(async () => {
+    const articleId = getPageContext()?.routeParams.id;
 
-  // Dynamically load the markdown file based on articleId
-  if (articleId && projectArticles[`../../../assets/content/projects/${articleId}.md`]) {
-    const articleFile = await projectArticles[`../../../assets/content/projects/${articleId}.md`]();
-    
-    const parsedArticle = matter.default(articleFile);
-    setArticle({
-      data: {
-        title: parsedArticle.data.title,
-        description: parsedArticle.data.description,
-        createdAt: new Date(parsedArticle.data.createdAt),
-        hero_image: parsedArticle.data.hero_image,
-        id: parsedArticle.data.id,
-        stack: parsedArticle.data.stack,
-        viewLink: parsedArticle.data.viewLink,
-        gitLink: parsedArticle.data.gitLink,
-      },
-      content: parsedArticle.content,
-    });
-  } else {
-    console.error(`Project with id ${articleId} not found.`);
-  }
-});
+    if (
+      articleId &&
+      projectArticles[`../../../assets/content/projects/${articleId}.md`]
+    ) {
+      const articleFile =
+        await projectArticles[
+          `../../../assets/content/projects/${articleId}.md`
+        ]();
+
+      const parsedArticle = matter.default(articleFile);
+      setArticle({
+        data: {
+          title: parsedArticle.data.title,
+          description: parsedArticle.data.description,
+          createdAt: new Date(parsedArticle.data.createdAt),
+          hero_image: parsedArticle.data.hero_image,
+          id: parsedArticle.data.id,
+          stack: parsedArticle.data.stack,
+          viewLink: parsedArticle.data.viewLink,
+          gitLink: parsedArticle.data.gitLink,
+        },
+        content: parsedArticle.content,
+      });
+    } else {
+      console.error(`Project with id ${articleId} not found.`);
+    }
+  });
 
   return (
     <div>
