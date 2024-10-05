@@ -2,7 +2,6 @@ import "./style.css";
 
 import "./tailwind.css";
 import { JSX, Suspense } from "solid-js";
-import logoUrl from "../assets/logo.jpg";
 import { Link } from "../components/Link.js";
 import { SiGithub, SiLinkedin, SiInstagram } from "solid-icons/si";
 

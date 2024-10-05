@@ -5,11 +5,12 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig({
   plugins: [
-    vike({}),
+    
+    vike({prerender: true}),
     vikeSolid({
       extensions: [".md"],
     }),
-    nodePolyfills(),
+    nodePolyfills()
   ],
   assetsInclude: ['**/*.md']
 });

@@ -2,7 +2,7 @@
 
 // Default <head> (can be overridden by pages)
 
-import logoUrl from "../assets/logo.svg";
+import logoUrl from "../assets/logo.jpg";
 
 export default function HeadDefault() {
   return (
