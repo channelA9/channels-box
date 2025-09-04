@@ -72,13 +72,19 @@ onMounted(() => {
               </p>
               <ul class="list-disc text-sm pl-4 mt-4">
                 <li>
-                  Contributed to the design and implementation of a RAG-based chatbot to improve access to university
-                  administrative resources using vector embeddings.
+                  Spearheaded an independent research project designing and executing a novel counterfactual testing
+                  framework to evaluate the faithfulness of AI-generated explanations for predictive machine learning
+                  models.
                 </li>
-
                 <li>
-                  Conducted exploratory literature reviews, analyzing 40+ academic papers regarding Al applications in
-                  education and infrastructure planning to identify research directions.
+                  Authored a 25-page manuscript detailing findings that LLMs exhibit a strong cognitive bias towards
+                  plausibility over faithfulness, highlighting critical challenges for developing trustworthy,
+                  human-centered AI systems.
+                </li>
+                <li>
+                  Contributed to the lab's broader research goals by synthesizing insights from 40+ academic papers to
+                  identify new research directions and by co-presenting team findings on a RAG-based chatbot at a
+                  university symposium.
                 </li>
               </ul>
             </li>
@@ -93,22 +99,42 @@ onMounted(() => {
               </p>
               <ul class="list-disc text-sm pl-4 mt-4">
                 <li>
-                  Developed technical documentation covering Al models and their capabilities for psychology researchers
-                  studying human-Al interactions under Dr. Adam Smith.
+                  Conducted a comparative performance analysis of leading LLMs to generate key insights for social
+                  psychology research, directly supporting the development of presentations for the Asian Association of
+                  Social Psychology (AASP) conference.
                 </li>
 
                 <li>
-                  Analyzed comparative performance of leading LLM models to support presentations given at conferences
-                  such as the Asian Association of Social Psychology (AASP).
-                </li>
-
-                <li>
-                  Created accessible explanations of complex Al concepts (e.g. neural networks, transformers) enabling
-                  interdisciplinary research on human-Al trust dynamics.
+                  Authored accessible technical documentation on complex AI concepts (e.g., transformers) to bridge the
+                  knowledge gap between computer science and psychology, directly enabling interdisciplinary research on
+                  human-AI trust dynamics.
                 </li>
               </ul>
             </li>
           </ol>
+        </div>
+        <div id="research">
+          <h1 class="text-2xl mb-2 font-display font-bold">research</h1>
+          <ul class="flex flex-col gap-4 list-disc list-inside">
+            <li class="gap-0 flex flex-col">
+              <p class="text-sm">
+                Colegado, S. (2025). "Faithful or Plausible? A Counterfactual Analysis of LLM-Generated Explanations for
+                Machine Learning Models" (Manuscript in Preparation).
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div id="presentations">
+          <h1 class="text-2xl mb-2 font-display font-bold">academic presentations</h1>
+          <ul class="flex flex-col gap-4 list-disc list-inside">
+            <li class="gap-0 flex flex-col">
+              <p class="text-sm">
+                Smith, A., Hasegawa, O., Sano, C., Xu, Z., & Colegado, S. (2024, June 21). Ethical Boundaries and Evil
+                Jun 2024 Aspects of AI: Insights from Research on AI Dependency in Japan. Talk presented online via
+                Curtin University at the Generative AI Workshop of the Asian Association of Social Psychology (AASP).
+              </p>
+            </li>
+          </ul>
         </div>
         <div id="projects">
           <h1 class="text-2xl mb-2 font-display font-bold">projects</h1>
@@ -121,8 +147,8 @@ onMounted(() => {
                 <span class="float-right font-normal">Jan 2025</span>
               </h2>
               <p class="text-xs text-neutral-600 mt-2">
-                Designed and implemented a TypeScript framework for simulating Al agent interactions, enabling the rapid
-                prototyping of multi-agent Al systems that can evaluate the ability of LLMs to exercise judgement and
+                Designed and implemented a TypeScript framework for simulating AI agent interactions, enabling the rapid
+                prototyping of multi-agent AI systems that can evaluate the ability of LLMs to exercise judgement and
                 adhere to assigned personas in a constructed environment.
               </p>
             </li>
@@ -132,22 +158,10 @@ onMounted(() => {
                 <span class="float-right font-normal">Dec 2024</span>
               </h2>
               <p class="text-xs text-neutral-600 mt-2">
-                Developed an Al-driven web application enabling users to have realistic conversational scenarios in
-                different languages to assist with language acquisition. Uses current leading LLMs such as GPT-4o,
-                Deepseek R1, and Gemini 2.5. Applied human-centered design principles to create a personalized, engaging
-                learning experience aimed at reducing educational inequalities in language learning.
-              </p>
-            </li>
-            <li class="gap-0 flex flex-col">
-              <h2 class="font-medium">
-                <a href="https://github.com/channelA9/reimus-incident-handler" class="underline"
-                  >Reimu's Incident Handler - Experimental Web Game</a
-                >
-                <span class="float-right font-normal">Nov 2024</span>
-              </h2>
-              <p class="text-xs text-neutral-600 mt-2">
-                Built a Vue.js-based prototype featuring a chat interface and agent-based interactions to explore the
-                dynamics of user engagement with Al agents within a fictional game environment.
+                Developed an AI-driven web application enabling users to have realistic conversational scenarios in
+                different languages to assist with language acquisition. Applied human-centered design principles to
+                create a personalized, engaging learning experience aimed at reducing educational inequalities in
+                language learning.
               </p>
             </li>
           </ol>
@@ -254,7 +268,7 @@ onMounted(() => {
               <li class="mb-2">
                 <h2 class="font-medium">Dean's Honor List</h2>
                 <ul class="text-xs text-neutral-600">
-                  <li>CSUSB: Fall 2024</li>
+                  <li>CSUSB: Fall 2024, Spring 2025</li>
                   <li>ICU: Spring 2024, Winter 2024, Fall 2023</li>
                   <li>UCM: Spring 2023</li>
                 </ul>
