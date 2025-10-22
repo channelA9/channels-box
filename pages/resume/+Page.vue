@@ -118,8 +118,8 @@ onMounted(() => {
           <ul class="flex flex-col gap-4 list-disc list-inside">
             <li class="gap-0 flex flex-col">
               <p class="text-sm">
-                Colegado, S. (2025). "Faithful or Plausible? A Counterfactual Analysis of LLM-Generated Explanations for
-                Machine Learning Models" (Manuscript in Preparation).
+                Colegado, S., Jin, J., Hou, Y. (2025). "Faithful or Plausible? A Counterfactual Analysis of LLM-Generated Explanations for
+                Machine Learning Models" (Submitted to IEEE ICSC 2026).
               </p>
             </li>
           </ul>
