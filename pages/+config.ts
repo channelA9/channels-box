@@ -9,8 +9,8 @@ export default {
   Layout,
 
   // https://vike.dev/head-tags
-  title: "channels-box",
-  description: "A personal blog and portfolio site.",
+  title: "Shaun Colegado",
+  description: "CS researcher and developer. Interested in explainable AI, human-AI trust, and web technologies.",
 
   extends: vikeVue as typeof vikeVue,
 } satisfies Config;

@@ -1,310 +1,201 @@
 <script setup lang="ts">
-import FeatureItem from "../../components/homepage/FeatureItem.vue";
-import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { RiTranslate, RiGithubFill, RiLinkedinFill } from "oh-vue-icons/icons/ri";
-import { IoCubeSharp } from "oh-vue-icons/icons/io";
-import { onMounted } from "vue";
+import { ref, computed } from "vue";
 import { useLanguage } from "../../lib/useLanguage";
-import { useBlogData } from "../../lib/useBlogData";
-import Profile from "../../components/Profile.vue";
+import { useCVData } from "../../lib/useCVData";
 
-addIcons(RiTranslate, RiGithubFill, RiLinkedinFill, IoCubeSharp);
+const { t } = useLanguage();
+const { cvData, isLoading } = useCVData();
 
-const { language, t, initLanguage } = useLanguage();
+const sections = [
+  { id: "contact", key: "contact" },
+  { id: "education", key: "education" },
+  { id: "experience", key: "experience" },
+  { id: "research", key: "research" },
+  { id: "presentations", key: "presentations" },
+  { id: "projects", key: "projects" },
+  { id: "skills", key: "skills" },
+  { id: "coursework", key: "coursework" },
+  { id: "awards", key: "awards" },
+  { id: "languages", key: "languages" },
+  { id: "extracurricular", key: "extracurricular" },
+];
 
-onMounted(() => {
-  initLanguage();
-});
+const activeSection = ref("contact");
+
+const scrollToSection = (id: string) => {
+  activeSection.value = id;
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
 </script>
 
 <template>
   <div>
-    <h1 class="font-display text-6xl lg:text-7xl font-bold text-black">{{ t.resume.title }}</h1>
-    <p class="text-lg">{{ t.resume.subtitle }}</p>
-  </div>
-  <div class="relative flex flex-col md:flex-row md:gap-24 bg-white w-full">
-    <div class="my-16 grow">
-      <div class="flex flex-col gap-8">
-        <div id="education">
-          <h1 class="text-2xl mb-2 font-display font-bold">education</h1>
-          <ol class="flex flex-col gap-4 list-disc list-inside">
-            <li class="gap-0 flex flex-col">
-              <h2 class="font-medium">
-                California State University, San Bernardino<span class="float-right font-normal"
-                  >San Bernardino, CA</span
-                >
-              </h2>
-              <p class="text-xs text-neutral-600">
-                Computer Science (B.S. expected December 2026), GPA: 3.85<span class="float-right"
-                  >Aug 2024 - Present</span
-                >
-              </p>
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold tracking-tight">{{ t.cv.title }}</h1>
+      <p class="text-sm text-text-muted mt-1">{{ t.cv.subtitle }}</p>
+    </div>
+
+    <div v-if="isLoading" class="text-sm text-text-light py-8">Loading...</div>
+
+    <div v-else-if="cvData" class="flex gap-6">
+      <!-- Sidebar Nav -->
+      <nav class="hidden lg:block w-40 flex-shrink-0 sticky top-6 self-start">
+        <ul class="space-y-0.5">
+          <li v-for="section in sections" :key="section.id">
+            <button
+              class="text-xs w-full text-left px-2 py-1 rounded transition-colors"
+              :class="activeSection === section.id
+                ? 'bg-accent text-white font-medium'
+                : 'text-text-muted hover:text-text hover:bg-border-light'"
+              @click="scrollToSection(section.id)"
+            >
+              {{ t.cv.sections[section.key as keyof typeof t.cv.sections] }}
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- CV Content -->
+      <div class="flex-grow min-w-0 space-y-8">
+        <!-- Contact -->
+        <section id="contact">
+          <h2 class="cv-heading">{{ t.cv.sections.contact }}</h2>
+          <dl class="text-sm space-y-1">
+            <div class="flex gap-4"><dt class="font-medium w-20 text-text-muted flex-shrink-0">Name</dt><dd>{{ cvData.contact.name }}</dd></div>
+            <div class="flex gap-4"><dt class="font-medium w-20 text-text-muted flex-shrink-0">Location</dt><dd>{{ cvData.contact.location }}</dd></div>
+            <div class="flex gap-4"><dt class="font-medium w-20 text-text-muted flex-shrink-0">Email</dt><dd>{{ cvData.contact.email }}</dd></div>
+          </dl>
+        </section>
+
+        <!-- Education -->
+        <section id="education">
+          <h2 class="cv-heading">{{ t.cv.sections.education }}</h2>
+          <div v-for="(edu, i) in cvData.education" :key="i" class="mb-3 last:mb-0">
+            <h3 class="font-medium text-sm">{{ edu.institution }}</h3>
+            <p class="text-xs text-text-muted">{{ edu.degree }}, GPA: {{ edu.gpa }}</p>
+            <p class="text-xs text-text-light">{{ edu.dates }} · {{ edu.location }}</p>
+          </div>
+        </section>
+
+        <!-- Experience -->
+        <section id="experience">
+          <h2 class="cv-heading">{{ t.cv.sections.experience }}</h2>
+          <div v-for="(exp, i) in cvData.experience" :key="i" class="mb-5 last:mb-0">
+            <h3 class="font-medium text-sm">{{ exp.title }}</h3>
+            <p class="text-xs text-text-muted">{{ exp.organization }} · {{ exp.location }}</p>
+            <p class="text-xs text-text-light mb-2">{{ exp.dates }}</p>
+            <ul class="space-y-1 text-xs text-text-muted">
+              <li v-for="(bullet, j) in exp.bullets" :key="j" class="leading-relaxed pl-3 relative">
+                <span class="absolute left-0">·</span>{{ bullet }}
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Research -->
+        <section id="research">
+          <h2 class="cv-heading">{{ t.cv.sections.research }}</h2>
+          <ul class="space-y-2">
+            <li v-for="(item, i) in cvData.research" :key="i" class="text-sm leading-relaxed">
+              {{ item.citation }}
             </li>
-            <li class="gap-0 flex flex-col">
-              <h2 class="font-medium">
-                International Christian University <span class="float-right font-normal">Tokyo, Japan</span>
-              </h2>
-              <p class="text-xs text-neutral-600">
-                One-year exchange program, GPA: 4.0 <span class="float-right">Sep 2023 - June 2024</span>
-              </p>
+          </ul>
+        </section>
+
+        <!-- Presentations -->
+        <section id="presentations">
+          <h2 class="cv-heading">{{ t.cv.sections.presentations }}</h2>
+          <ul class="space-y-2">
+            <li v-for="(item, i) in cvData.presentations" :key="i" class="text-sm leading-relaxed">
+              {{ item.citation }}
             </li>
-            <li class="gap-0 flex flex-col">
-              <h2 class="font-medium">
-                University of California, Merced <span class="float-right font-normal">Merced, CA</span>
-              </h2>
-              <p class="text-xs text-neutral-600">
-                Computer Science and Engineering, GPA: 3.69<span class="float-right">Aug 2022 - May 2023 </span>
-              </p>
-            </li>
-          </ol>
-        </div>
-        <div id="work">
-          <h1 class="text-2xl mb-2 font-display font-bold">work</h1>
-          <ol class="flex flex-col gap-4 list-disc list-inside">
-            <li class="gap-0 flex flex-col">
-              <h2 class="font-medium">
-                Undergraduate Research Assistant
-                <span class="float-right font-normal">San Bernardino, CA</span>
-              </h2>
-              <p class="text-xs text-neutral-600">
-                California State University, San Bernardino
-                <span class="float-right">February 2025 - Present</span>
-              </p>
-              <ul class="list-disc text-sm pl-4 mt-4">
-                <li>
-                  Spearheaded an independent research project designing and executing a novel counterfactual testing
-                  framework to evaluate the faithfulness of AI-generated explanations for predictive machine learning
-                  models.
-                </li>
-                <li>
-                  Authored a 25-page manuscript detailing findings that LLMs exhibit a strong cognitive bias towards
-                  plausibility over faithfulness, highlighting critical challenges for developing trustworthy,
-                  human-centered AI systems.
-                </li>
-                <li>
-                  Contributed to the lab's broader research goals by synthesizing insights from 40+ academic papers to
-                  identify new research directions and by co-presenting team findings on a RAG-based chatbot at a
-                  university symposium.
-                </li>
+          </ul>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects">
+          <h2 class="cv-heading">{{ t.cv.sections.projects }}</h2>
+          <div v-for="(proj, i) in cvData.projects" :key="i" class="mb-3 last:mb-0">
+            <h3 class="font-medium text-sm">
+              <a :href="proj.url" target="_blank" class="text-accent hover:underline">{{ proj.name }}</a>
+            </h3>
+            <p class="text-xs text-text-light">{{ proj.date }}</p>
+            <p class="text-xs text-text-muted mt-0.5 leading-relaxed">{{ proj.description }}</p>
+          </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills">
+          <h2 class="cv-heading">{{ t.cv.sections.skills }}</h2>
+          <div class="space-y-2">
+            <div v-for="(skill, i) in cvData.skills" :key="i" class="flex gap-2">
+              <span class="font-medium text-xs w-32 flex-shrink-0">{{ skill.category }}</span>
+              <span class="text-xs text-text-muted">{{ skill.items }}</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Coursework -->
+        <section id="coursework">
+          <h2 class="cv-heading">{{ t.cv.sections.coursework }}</h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div v-for="(course, i) in cvData.coursework" :key="i">
+              <h3 class="font-medium text-xs mb-0.5">{{ course.category }}</h3>
+              <ul class="text-xs text-text-muted">
+                <li v-for="(item, j) in course.items" :key="j">{{ item }}</li>
               </ul>
-            </li>
-            <li class="gap-0 flex flex-col">
-              <h2 class="font-medium">
-                Undergraduate Research Assistant
-                <span class="float-right font-normal">Tokyo, Japan</span>
-              </h2>
-              <p class="text-xs text-neutral-600">
-                International Christian University
-                <span class="float-right">May 2024 - June 2024</span>
-              </p>
-              <ul class="list-disc text-sm pl-4 mt-4">
-                <li>
-                  Conducted a comparative performance analysis of leading LLMs to generate key insights for social
-                  psychology research, directly supporting the development of presentations for the Asian Association of
-                  Social Psychology (AASP) conference.
-                </li>
+            </div>
+          </div>
+        </section>
 
-                <li>
-                  Authored accessible technical documentation on complex AI concepts (e.g., transformers) to bridge the
-                  knowledge gap between computer science and psychology, directly enabling interdisciplinary research on
-                  human-AI trust dynamics.
-                </li>
-              </ul>
-            </li>
-          </ol>
-        </div>
-        <div id="research">
-          <h1 class="text-2xl mb-2 font-display font-bold">research</h1>
-          <ul class="flex flex-col gap-4 list-disc list-inside">
-            <li class="gap-0 flex flex-col">
-              <p class="text-sm">
-                Colegado, S., Jin, J., Hou, Y. (2025). "Faithful or Plausible? A Counterfactual Analysis of LLM-Generated Explanations for
-                Machine Learning Models" (Submitted to IEEE ICSC 2026).
-              </p>
-            </li>
-          </ul>
-        </div>
-        <div id="presentations">
-          <h1 class="text-2xl mb-2 font-display font-bold">academic presentations</h1>
-          <ul class="flex flex-col gap-4 list-disc list-inside">
-            <li class="gap-0 flex flex-col">
-              <p class="text-sm">
-                Smith, A., Hasegawa, O., Sano, C., Xu, Z., & Colegado, S. (2024, June 21). Ethical Boundaries and Evil
-                Jun 2024 Aspects of AI: Insights from Research on AI Dependency in Japan. Talk presented online via
-                Curtin University at the Generative AI Workshop of the Asian Association of Social Psychology (AASP).
-              </p>
-            </li>
-          </ul>
-        </div>
-        <div id="projects">
-          <h1 class="text-2xl mb-2 font-display font-bold">projects</h1>
-          <ol class="flex flex-col gap-4 list-disc list-inside">
-            <li class="gap-0 flex flex-col">
-              <h2 class="font-medium">
-                <a href="https://github.com/channelA9/mogi" class="underline"
-                  >Mogi - Agent-Based Simulation Framework</a
-                >
-                <span class="float-right font-normal">Jan 2025</span>
-              </h2>
-              <p class="text-xs text-neutral-600 mt-2">
-                Designed and implemented a TypeScript framework for simulating AI agent interactions, enabling the rapid
-                prototyping of multi-agent AI systems that can evaluate the ability of LLMs to exercise judgement and
-                adhere to assigned personas in a constructed environment.
-              </p>
-            </li>
-            <li class="gap-0 flex flex-col">
-              <h2 class="font-medium">
-                <a href="https://github.com/channelA9/jibash" class="underline">jiBash - Language Learning Web App</a>
-                <span class="float-right font-normal">Dec 2024</span>
-              </h2>
-              <p class="text-xs text-neutral-600 mt-2">
-                Developed an AI-driven web application enabling users to have realistic conversational scenarios in
-                different languages to assist with language acquisition. Applied human-centered design principles to
-                create a personalized, engaging learning experience aimed at reducing educational inequalities in
-                language learning.
-              </p>
-            </li>
-          </ol>
-        </div>
-        <div id="extracurricular" class="flex flex-col">
-          <h1 class="text-xl mb-2 font-display font-bold">extracurricular</h1>
-          <ul class="">
-            <li class="mb-2">
-              <h2 class="font-medium">Computer Science and Engineering Club</h2>
-
-              <p class="text-xs text-neutral-600">
-                Leading student project development exploring generative Al use cases in web applications, with a focus
-                on user-centered design principles. (Aug 2024-Present)
-              </p>
-            </li>
-            <li class="mb-2">
-              <h2 class="font-medium">Culture and Diversity in Japan (CDJ)</h2>
-
-              <p class="text-xs text-neutral-600">
-                Facilitated cross-cultural workshops, fostering dialogue and understanding among students from diverse
-                backgrounds. (Dec 2023 - June 2024)
-              </p>
-            </li>
-            <li>
-              <h2 class="font-medium">Association for Computing Machinery (ACM)</h2>
-
-              <p class="text-xs text-neutral-600">
-                Participated in game development workshops, gaining experience in designing interactive systems and
-                considering user engagement.
-              </p>
-            </li>
-          </ul>
-        </div>
-        <div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
-          <div id="skills" class="flex flex-col">
-            <h1 class="text-xl mb-2 font-display font-bold">skills</h1>
-            <ul class="">
-              <li class="mb-2">
-                <h2 class="font-medium">Web Development</h2>
-
-                <p class="text-xs text-neutral-600">
-                  Javascript, TypeScript, HTML, CSS, React, Vue.js, TailwindCSS, DaisyUI
-                </p>
-              </li>
-              <li class="mb-2">
-                <h2 class="font-medium">LLMs/AI API</h2>
-
-                <p class="text-xs text-neutral-600">Gemini, GPT, Claude, Cohere, LLaMA</p>
-              </li>
-              <li class="mb-2">
-                <h2 class="font-medium">Data Science</h2>
-
-                <p class="text-xs text-neutral-600">R, Python, SQL, Jupyter</p>
-              </li>
-              <li class="mb-2">
-                <h2 class="font-medium">Machine Learning</h2>
-
-                <p class="text-xs text-neutral-600">Scikit-learn</p>
-              </li>
-              <li class="mb-2">
-                <h2 class="font-medium">Game Development</h2>
-                <p class="text-xs text-neutral-600">Godot Engine (GDScript), Roblox Studio (Lua)</p>
-              </li>
-              <li class="mb-2">
-                <h2 class="font-medium">Cloud Infrastructure</h2>
-                <p class="text-xs text-neutral-600">Firebase, Supabase, AWS, Google Cloud, Cloudflare</p>
-              </li>
+        <!-- Awards -->
+        <section id="awards">
+          <h2 class="cv-heading">{{ t.cv.sections.awards }}</h2>
+          <div v-for="(award, i) in cvData.awards" :key="i" class="mb-2 last:mb-0">
+            <h3 class="font-medium text-xs">{{ award.name }}</h3>
+            <ul class="text-xs text-text-muted">
+              <li v-for="(detail, j) in award.details" :key="j">{{ detail }}</li>
             </ul>
           </div>
-          <div id="coursework" class="flex flex-col">
-            <h1 class="text-xl mb-2 font-display font-bold">coursework</h1>
-            <ul class="">
-              <li class="mb-2">
-                <h2 class="font-medium">Programming</h2>
-                <ul class="text-xs text-neutral-600">
-                  <li>Data Structures and Algorithms</li>
-                  <li>Machine Learning</li>
-                  <li>Web Development</li>
-                  <li>Database Systems</li>
-                  <li>Digital Logic</li>
-                  <li>Networks</li>
-                </ul>
-              </li>
-              <li class="mb-2">
-                <h2 class="font-medium">Math</h2>
-                <ul class="text-xs text-neutral-600">
-                  <li>Linear Algebra & Differential Equations</li>
-                  <li>Statistics</li>
-                  <li>Discrete Math</li>
-                  <li>Calculus 1-3</li>
-                </ul>
-              </li>
-              <li class="mb-2">
-                <h2 class="font-medium">Other</h2>
-                <ul class="text-xs text-neutral-600">
-                  <li>Intercultural Communication</li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div id="awards" class="flex flex-col">
-            <h1 class="text-xl mb-2 font-display font-bold">awards</h1>
-            <ul class="">
-              <li class="mb-2">
-                <h2 class="font-medium">Dean's Honor List</h2>
-                <ul class="text-xs text-neutral-600">
-                  <li>CSUSB: Fall 2024, Spring 2025</li>
-                  <li>ICU: Spring 2024, Winter 2024, Fall 2023</li>
-                  <li>UCM: Spring 2023</li>
-                </ul>
-              </li>
-              <li class="mb-2">
-                <h2 class="font-medium">Scholarships</h2>
-                <ul class="text-xs text-neutral-600">
-                  <li>UCEAP Global Scholarship</li>
-                  <li>UCEAP Year-long Duttenhaver Scholarship</li>
-                  <li>Genelia Phillips Study Abroad Scholarship</li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div id="languages" class="flex flex-col">
-            <h1 class="text-xl mb-2 font-display font-bold">languages</h1>
-            <ul class="">
-              <li class="mb-2">
-                <h2 class="font-medium">English</h2>
+        </section>
 
-                <p class="text-xs text-neutral-600">Native proficiency, fluent in reading, writing, and speaking.</p>
-              </li>
-              <li class="mb-2">
-                <h2 class="font-medium">Japanese</h2>
-
-                <p class="text-xs text-neutral-600">
-                  Intermediate; proficient in reading, writing, and speaking at a JLPT N3 level.
-                </p>
-              </li>
-            </ul>
+        <!-- Languages -->
+        <section id="languages">
+          <h2 class="cv-heading">{{ t.cv.sections.languages }}</h2>
+          <div v-for="(lang, i) in cvData.languages" :key="i" class="mb-1.5 last:mb-0">
+            <span class="font-medium text-xs">{{ lang.name }}</span>
+            <span class="text-xs text-text-muted"> — {{ lang.proficiency }}</span>
           </div>
-        </div>
+        </section>
+
+        <!-- Extracurricular -->
+        <section id="extracurricular">
+          <h2 class="cv-heading">{{ t.cv.sections.extracurricular }}</h2>
+          <div v-for="(item, i) in cvData.extracurricular" :key="i" class="mb-2 last:mb-0">
+            <h3 class="font-medium text-xs">{{ item.name }}</h3>
+            <p class="text-xs text-text-muted leading-relaxed">{{ item.description }}</p>
+            <p v-if="item.dates" class="text-xs text-text-light">{{ item.dates }}</p>
+          </div>
+        </section>
       </div>
     </div>
-    <div class="my-8 grid gap-4 grow-0 min-w-36">
-      <Profile />
-    </div>
+
+    <div v-else class="text-sm text-text-light py-8">Failed to load CV data.</div>
   </div>
 </template>
+
+<style scoped>
+.cv-heading {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-accent);
+  padding-bottom: 0.375rem;
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: 0.75rem;
+}
+</style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed } from "vue";
 import { useLanguage } from "../../../lib/useLanguage";
 import { useBlogPost } from "../../../lib/useBlogPost";
 import { usePageContext } from "vike-vue/usePageContext";
@@ -7,14 +7,8 @@ import { usePageContext } from "vike-vue/usePageContext";
 const pageContext = usePageContext();
 const slug = pageContext.routeParams?.slug as string;
 
-const { language, initLanguage } = useLanguage();
+const { language } = useLanguage();
 const { blogPost, isLoading } = useBlogPost(slug);
-
-const isClient = ref(false);
-onMounted(() => {
-  initLanguage();
-  isClient.value = true;
-});
 
 const formattedDate = computed(() => {
   if (!blogPost.value) return "";
@@ -29,80 +23,42 @@ const formattedDate = computed(() => {
 
 <template>
   <div class="blog-post-container">
-    <div v-if="isClient && isLoading" class="text-center py-8">
-      <p class="text-gray-500">Loading blog post...</p>
+    <div v-if="isLoading" class="text-center py-8">
+      <p class="text-text-light text-sm">Loading...</p>
     </div>
     <div v-else-if="blogPost">
-      <header class="blog-post-header">
-        <h1 class="blog-post-title">{{ blogPost.title }}</h1>
-        <div class="blog-post-meta">
-          <time class="blog-post-date">{{ formattedDate }}</time>
-          <span v-if="blogPost.category" class="blog-post-category">{{ blogPost.category }}</span>
-        </div>
-        <p v-if="blogPost.excerpt" class="blog-post-excerpt">{{ blogPost.excerpt }}</p>
+      <header class="mb-8 pb-6 border-b border-border-light">
+        <span v-if="blogPost.category" class="text-xs font-medium text-accent">{{ blogPost.category }}</span>
+        <h1 class="text-3xl font-bold tracking-tight mt-1">{{ blogPost.title }}</h1>
+        <time class="text-sm text-text-light mt-2 block">{{ formattedDate }}</time>
+        <p v-if="blogPost.excerpt" class="text-sm text-text-muted mt-3 italic">{{ blogPost.excerpt }}</p>
       </header>
       <div class="blog-post-content" v-html="blogPost.pageContent"></div>
     </div>
     <div v-else class="text-center py-8">
-      <p class="text-gray-500">Blog post not found</p>
+      <p class="text-text-light text-sm">Blog post not found</p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.blog-post-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.blog-post-header {
-  margin-bottom: 2rem;
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 1.5rem;
-}
-
-.blog-post-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-}
-
-.blog-post-meta {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  margin-bottom: 1rem;
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.blog-post-category {
-  background-color: #f3f4f6;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-weight: 500;
-}
-
-.blog-post-excerpt {
-  font-size: 1.125rem;
-  color: #4b5563;
-  font-style: italic;
-  margin: 0;
-}
-
 .blog-post-content {
-  line-height: 1.7;
+  line-height: 1.8;
+  font-size: 0.95rem;
 }
 
 .blog-post-content :deep(h1),
 .blog-post-content :deep(h2),
 .blog-post-content :deep(h3) {
   margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
+
+.blog-post-content :deep(h1) { font-size: 1.75rem; }
+.blog-post-content :deep(h2) { font-size: 1.375rem; }
+.blog-post-content :deep(h3) { font-size: 1.125rem; }
 
 .blog-post-content :deep(p) {
   margin-bottom: 1rem;
@@ -114,11 +70,15 @@ const formattedDate = computed(() => {
   padding-left: 1.5rem;
 }
 
+.blog-post-content :deep(li) {
+  margin-bottom: 0.25rem;
+}
+
 .blog-post-content :deep(code) {
-  background-color: #f3f4f6;
-  padding: 0.125rem 0.25rem;
+  background-color: var(--color-border-light);
+  padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
-  font-size: 0.875rem;
+  font-size: 0.85em;
 }
 
 .blog-post-content :deep(pre) {
@@ -130,13 +90,27 @@ const formattedDate = computed(() => {
   margin-bottom: 1rem;
 }
 
+.blog-post-content :deep(pre code) {
+  background: none;
+  padding: 0;
+}
+
 .blog-post-content :deep(blockquote) {
-  border-left: 4px solid #e5e7eb;
+  border-left: 3px solid var(--color-accent);
   padding-left: 1rem;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 1rem;
-  color: #6b7280;
+  margin: 0 0 1rem 0;
+  color: var(--color-text-muted);
   font-style: italic;
+}
+
+.blog-post-content :deep(a) {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.blog-post-content :deep(img) {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
 }
 </style>

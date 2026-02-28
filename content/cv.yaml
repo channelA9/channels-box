@@ -1,0 +1,136 @@
+contact:
+  name: Shaun Colegado
+  title: CS Researcher
+  email: shaun.colegado@gmail.com
+  location: Beaumont, CA
+
+education:
+  - institution: California State University, San Bernardino
+    location: San Bernardino, CA
+    degree: Computer Science (B.S. expected December 2026)
+    gpa: "3.87"
+    dates: Aug 2024 - Present
+
+  - institution: International Christian University
+    location: Tokyo, Japan
+    degree: One-year exchange program
+    gpa: "4.0"
+    dates: Sep 2023 - June 2024
+
+  - institution: University of California, Merced
+    location: Merced, CA
+    degree: Computer Science and Engineering
+    gpa: "3.69"
+    dates: Aug 2022 - May 2023
+
+experience:
+  - title: Undergraduate Research Assistant
+    organization: California State University, San Bernardino
+    location: San Bernardino, CA
+    dates: February 2025 - Present
+
+  - title: Undergraduate Research Assistant
+    organization: International Christian University
+    location: Tokyo, Japan
+    dates: May 2024 - June 2024
+
+research:
+  - citation: >
+      Colegado, S., Jin, J., Hou, Y. (2025). "Faithful or Plausible? 
+      A Counterfactual Analysis of LLM-Generated Explanations for Machine 
+      Learning Models" (Submitted to IEEE ICSC 2026).
+
+presentations:
+  - citation: >
+      Smith, A., Hasegawa, O., Sano, C., Xu, Z., & Colegado, S. (2024, 
+      June 21). Ethical Boundaries and Evil Aspects of AI: Insights from 
+      Research on AI Dependency in Japan. Talk presented online via Curtin 
+      University at the Generative AI Workshop of the Asian Association 
+      of Social Psychology (AASP).
+
+projects:
+  - name: Mogi - Agent-Based Simulation Framework
+    url: https://github.com/channelA9/mogi
+    date: Jan 2025
+    description: >
+      A TypeScript framework for simulating AI agent 
+      interactions, enabling the rapid prototyping of multi-agent AI systems 
+      that can evaluate the ability of LLMs to exercise judgement and adhere 
+      to assigned personas in a constructed environment.
+
+  - name: jiBash - Language Learning Web App
+    url: https://github.com/channelA9/jibash
+    date: Dec 2024
+    description: >
+      An AI-driven web application enabling users to have realistic 
+      conversation scenarios in different languages to assist with language 
+      acquisition.
+
+skills:
+  - category: Web Development
+    items: Javascript, TypeScript, HTML, CSS, React, Vue.js, TailwindCSS, DaisyUI
+  - category: LLMs/AI API
+    items: Gemini, GPT, Claude, Cohere, LLaMA
+  - category: Data Science
+    items: R, Python, SQL, Jupyter
+  - category: Machine Learning
+    items: Scikit-learn
+  - category: Game Development
+    items: Godot Engine (GDScript), Roblox Studio (Lua)
+  - category: Cloud Infrastructure
+    items: Firebase, Supabase, AWS, Google Cloud, Cloudflare
+
+coursework:
+  - category: Programming
+    items:
+      - Data Structures and Algorithms
+      - Machine Learning
+      - Web Development
+      - Database Systems
+      - Digital Logic
+      - Networks
+  - category: Math
+    items:
+      - Linear Algebra & Differential Equations
+      - Statistics
+      - Discrete Math
+      - Calculus 1-3
+  - category: Other
+    items:
+      - Intercultural Communication
+
+awards:
+  - name: Dean's Honor List
+    details:
+      - "CSUSB: Fall 2024, Spring 2025"
+      - "ICU: Spring 2024, Winter 2024, Fall 2023"
+      - "UCM: Spring 2023"
+  - name: Scholarships
+    details:
+      - UCEAP Global Scholarship
+      - UCEAP Year-long Duttenhaver Scholarship
+      - Genelia Phillips Study Abroad Scholarship
+
+languages:
+  - name: English
+    proficiency: Native proficiency, fluent in reading, writing, and speaking.
+  - name: Japanese
+    proficiency: Intermediate; proficient in reading, writing, and speaking at a JLPT N3 level.
+
+extracurricular:
+  - name: Computer Science and Engineering Club
+    description: >
+      Leading student project development exploring generative AI use cases 
+      in web applications, with a focus on user-centered design principles.
+    dates: Aug 2024 - Present
+
+  - name: Culture and Diversity in Japan (CDJ)
+    description: >
+      Facilitated cross-cultural workshops, fostering dialogue and understanding 
+      among students from diverse backgrounds.
+    dates: Dec 2023 - June 2024
+
+  - name: Association for Computing Machinery (ACM)
+    description: >
+      Participated in game development workshops, gaining experience in 
+      designing interactive systems and considering user engagement.

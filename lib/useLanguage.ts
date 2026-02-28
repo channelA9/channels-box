@@ -3,6 +3,31 @@ import type { Language, Translations } from "./i18n";
 import { getTranslations } from "./i18n";
 
 const currentLanguage = ref<Language>("en");
+let initialized = false;
+
+// Auto-initialize on first import (SSR-safe)
+function autoInit() {
+  if (initialized) return;
+  if (typeof window === "undefined") return;
+
+  initialized = true;
+
+  const saved = localStorage.getItem("preferred-language") as Language;
+  if (saved && (saved === "en" || saved === "jp")) {
+    currentLanguage.value = saved;
+    return;
+  }
+
+  // Detect browser locale on first visit
+  const browserLang = navigator.language.toLowerCase();
+  if (browserLang.startsWith("ja")) {
+    currentLanguage.value = "jp";
+  } else {
+    currentLanguage.value = "en";
+  }
+
+  localStorage.setItem("preferred-language", currentLanguage.value);
+}
 
 export function useLanguage() {
   const language = computed(() => currentLanguage.value);
@@ -20,27 +45,13 @@ export function useLanguage() {
     setLanguage(currentLanguage.value === "en" ? "jp" : "en");
   };
 
-  // Initialize language from localStorage or browser locale
+  // Keep initLanguage for backward compat, but it now just calls autoInit
   const initLanguage = () => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("preferred-language") as Language;
-      if (saved && (saved === "en" || saved === "jp")) {
-        currentLanguage.value = saved;
-        return;
-      }
-
-      // Detect browser locale on first visit
-      const browserLang = navigator.language.toLowerCase();
-      if (browserLang.startsWith("ja")) {
-        currentLanguage.value = "jp";
-      } else {
-        currentLanguage.value = "en";
-      }
-
-      // Save the detected/default language
-      localStorage.setItem("preferred-language", currentLanguage.value);
-    }
+    autoInit();
   };
+
+  // Auto-init when composable is first used
+  autoInit();
 
   return {
     language,

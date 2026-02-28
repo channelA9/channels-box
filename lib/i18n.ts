@@ -4,54 +4,57 @@ export interface Translations {
   nav: {
     home: string;
     blog: string;
-    projects: string;
-    interactives: string;
-    resume: string;
+    papers: string;
+    cv: string;
   };
   home: {
     subtitle: string;
     theLatest: string;
-    myStuff: string;
-    moreStuff: string;
-    welcomeToBlog: string;
-    moreContentSoon: string;
-    japan2025: string;
-    japan2025Description: string;
-    devBlog: string;
-    devBlogDescription: string;
-    nothingyet: string;
+    recentBlog: string;
+    recentPapers: string;
+    viewAll: string;
+    noPosts: string;
+    noPapers: string;
     profile: {
       name: string;
-      username: string;
       title: string;
-      status: string;
-    };
-    projects: {
-      jibash: {
-        title: string;
-        description: string;
-      };
-      mogi: {
-        title: string;
-        description: string;
-      };
+      bio: string;
     };
   };
   blog: {
     title: string;
     subtitle: string;
-    noCategories: string;
     noPosts: string;
-    noPostsDescription: string;
   };
-  projects: {
+  papers: {
     title: string;
     subtitle: string;
+    filterPlaceholder: string;
+    noPapers: string;
+    bib: string;
   };
-  resume: {
+  cv: {
     title: string;
     subtitle: string;
+    downloadPdf: string;
+    sections: {
+      contact: string;
+      summary: string;
+      education: string;
+      experience: string;
+      research: string;
+      presentations: string;
+      projects: string;
+      skills: string;
+      coursework: string;
+      awards: string;
+      languages: string;
+      extracurricular: string;
     };
+  };
+  footer: {
+    copyright: string;
+  };
 }
 
 export const translations: Record<Language, Translations> = {
@@ -59,106 +62,112 @@ export const translations: Record<Language, Translations> = {
     nav: {
       home: "home",
       blog: "blog",
-      projects: "projects",
-      interactives: "interactives",
-      resume: "resume",
+      papers: "papers",
+      cv: "cv",
     },
     home: {
-      subtitle: "where the cool stuff is",
-      theLatest: "THE LATEST",
-      myStuff: "my stuff",
-      moreStuff: "more stuff",
-      welcomeToBlog: "Welcome to my blog!",
-      moreContentSoon: "More content coming soon!",
-      japan2025: "japan-2025",
-      japan2025Description: "blog posts from Japan May 2025",
-      devBlog: "dev-blog",
-      devBlogDescription: "developer posts",
-      nothingyet: "Nothing here yet!",
+      subtitle: "CS researcher & developer",
+      theLatest: "Latest",
+      recentBlog: "Blog",
+      recentPapers: "Papers",
+      viewAll: "View all →",
+      noPosts: "No blog posts yet.",
+      noPapers: "No papers yet.",
       profile: {
         name: "Shaun Colegado",
-        username: "channel9",
-        title: "web developer",
-        status: "With love from sunny California!",
-      },
-      projects: {
-        jibash: {
-          title: "jibash",
-          description: "language learning app",
-        },
-        mogi: {
-          title: "mogi",
-          description: "llm agent framework",
-        },
+        title: "CS Researcher & Web Developer",
+        bio: "I'm an undergraduate researcher at the [Leonard Transportation Center](https://www.csusb.edu/leonard-transportation-center) at CSUSB under [Dr. Yunfei Hou](https://sites.google.com/site/yunfeihouhomepage/). My interests are in Human-Computer Interaction, Human-AI trust, and web technologies. \n I previously assisted with psychology research at International Christian University in Tokyo.",
       },
     },
     blog: {
-      title: "general-blog",
-      subtitle: "random posts",
-      noCategories: "No categories yet",
-      noPosts: "No blog posts found",
-      noPostsDescription: "Make sure there are markdown files in the new-content-structure directory.",
+      title: "Blog",
+      subtitle: "Thoughts and notes",
+      noPosts: "No blog posts found.",
     },
-    projects: {
-      title: "projects",
-      subtitle: "things I've built",
+    papers: {
+      title: "Papers",
+      subtitle: "Publications in reverse chronological order",
+      filterPlaceholder: "Type to filter",
+      noPapers: "No papers found.",
+      bib: "BIB",
     },
-    resume: {
-      title: "resume",
-      subtitle: "my professional experience",
+    cv: {
+      title: "CV",
+      subtitle: "Academic curriculum vitae",
+      downloadPdf: "Download PDF",
+      sections: {
+        contact: "Contact Information",
+        summary: "Professional Summary",
+        education: "Education",
+        experience: "Experience",
+        research: "Research",
+        presentations: "Academic Presentations",
+        projects: "Projects",
+        skills: "Skills",
+        coursework: "Coursework",
+        awards: "Awards",
+        languages: "Languages",
+        extracurricular: "Extracurricular",
+      },
+    },
+    footer: {
+      copyright: `© ${new Date().getFullYear()} Shaun Colegado`,
     },
   },
   jp: {
     nav: {
       home: "ホーム",
       blog: "ブログ",
-      projects: "プロジェクト",
-      interactives: "インタラクティブ",
-      resume: "履歴書",
+      papers: "論文",
+      cv: "履歴書",
     },
     home: {
-      subtitle: "一体何があるか分からないが、ここにあり",
+      subtitle: "CS研究者 & 開発者",
       theLatest: "最新",
-      myStuff: "私の物",
-      moreStuff: "その他",
-      welcomeToBlog: "ブログへようこそ",
-      moreContentSoon: "もっとコンテンツが来る！",
-      japan2025: "日本-2025",
-      japan2025Description: "2025年5月の日本からのブログ投稿",
-      devBlog: "開発ブログ",
-      devBlogDescription: "開発者の投稿",
-      nothingyet: "まだ何もありません！",
+      recentBlog: "ブログ",
+      recentPapers: "論文",
+      viewAll: "すべて見る →",
+      noPosts: "ブログ投稿はまだありません。",
+      noPapers: "論文はまだありません。",
       profile: {
         name: "ショーン・コレガド",
-        username: "channel9",
-        title: "ウェブ開発者",
-        status: "カリフォルニアの青空からお届けします!",
-      },
-      projects: {
-        jibash: {
-          title: "jibash",
-          description: "言語学習アプリ",
-        },
-        mogi: {
-          title: "mogi",
-          description: "LLMエージェントフレームワーク",
-        },
+        title: "CS研究者 & ウェブ開発者",
+        bio: "California State University, San Bernardinoの[Leonard Transportation Center](https://www.csusb.edu/leonard-transportation-center)にて、[Yunfei Hou博士](https://sites.google.com/site/yunfeihouhomepage/)の下で学部研究者を務めています。ヒューマン・コンピュータ・インタラクション、人間とAIの信頼、およびウェブ技術に関心があります。\n 以前は、東京の国際基督教大学（ICU）で心理学研究の助手を務めていました。",
       },
     },
     blog: {
-      title: "一般ブログ",
-      subtitle: "ランダムな投稿",
-      noCategories: "まだカテゴリがありません",
-      noPosts: "ブログ投稿が見つかりません",
-      noPostsDescription: "ディレクトリにマークダウンファイルがあることを確認してください。",
+      title: "ブログ",
+      subtitle: "考えとメモ",
+      noPosts: "ブログ投稿が見つかりません。",
     },
-    projects: {
-      title: "プロジェクト",
-      subtitle: "私が作ったもの",
+    papers: {
+      title: "論文",
+      subtitle: "逆年代順の出版物",
+      filterPlaceholder: "フィルター",
+      noPapers: "論文が見つかりません。",
+      bib: "BIB",
     },
-    resume: {
-      title: "歴史書",
-      subtitle: "自分の職業経験",
+    cv: {
+      title: "履歴書",
+      subtitle: "学術的履歴書",
+      downloadPdf: "PDFダウンロード",
+      sections: {
+        contact: "連絡先",
+        summary: "概要",
+        education: "学歴",
+        experience: "職歴",
+        research: "研究",
+        presentations: "学術発表",
+        projects: "プロジェクト",
+        skills: "スキル",
+        coursework: "履修科目",
+        awards: "受賞",
+        languages: "言語",
+        extracurricular: "課外活動",
+      },
+    },
+    footer: {
+      copyright: `© ${new Date().getFullYear()} ショーン・コレガド`,
     },
   },
 };

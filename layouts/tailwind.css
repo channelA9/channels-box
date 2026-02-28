@@ -1,5 +1,27 @@
 @import "tailwindcss";
 @theme {
-    --font-display: "Anonymous Pro", "sans-serif";
-    --font-sans-serif: "Inter", "sans-serif";
+    --font-display: "Inter", "Noto Sans JP", sans-serif;
+    --font-sans: "Inter", "Noto Sans JP", sans-serif;
+    --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+    --color-bg: #EDEAE0;
+    --color-bg-card: #ffffff;
+    --color-text: #100C08;
+    --color-text-muted: #2A3439;
+    --color-text-light: #555555;
+    --color-accent: #660000;
+    --color-accent-light: #fef3c7;
+    --color-border: #98817B;
+    --color-border-light: #98817B;
+
+    /* Dark mode overrides — applied via .dark class */
+    --color-bg-dark: #1a1a2e;
+    --color-bg-card-dark: #222244;
+    --color-text-dark: #e8e6e1;
+    --color-text-muted-dark: #b0aead;
+    --color-text-light-dark: #888888;
+    --color-accent-dark: #c8a070;
+    --color-accent-light-dark: #3d3520;
+    --color-border-dark: #333355;
+    --color-border-light-dark: #2a2a4a;
   }

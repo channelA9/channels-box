@@ -12,6 +12,10 @@ export interface BlogArticle {
   slug: string;
 }
 
+function getContentDir(): string {
+  return path.join(process.cwd(), "content");
+}
+
 export async function GET(c: Context) {
   const language = c.req.query("lang") || "en";
 
@@ -20,32 +24,27 @@ export async function GET(c: Context) {
   }
 
   try {
-    // Fetch the list of files via HTTP from the production domain
-    const baseUrl = "https://channelsbox.dev";
-    const indexUrl = `${baseUrl}/content/${language}/blog/`;
-    const indexRes = await fetch(`${indexUrl}index.json`);
-    if (!indexRes.ok) throw new Error("Failed to fetch blog index");
-    const files = await indexRes.json();
+    const contentDir = getContentDir();
+    const blogDir = path.join(contentDir, language, "blog");
+
+    const files = await readdir(blogDir);
+    const mdFiles = files.filter((file: string) => file.endsWith(".md"));
 
     const articles: BlogArticle[] = await Promise.all(
-      (files as string[])
-        .filter((file: string) => file.endsWith(".md"))
-        .map(async (file: string): Promise<BlogArticle> => {
-          const slug = file.replace(".md", "");
-          const fileUrl = `${indexUrl}${file}`;
-          const fileRes = await fetch(fileUrl);
-          if (!fileRes.ok) throw new Error(`Failed to fetch ${fileUrl}`);
-          const fileContent = await fileRes.text();
-          const { data: frontmatter } = matter(fileContent);
+      mdFiles.map(async (file: string): Promise<BlogArticle> => {
+        const slug = file.replace(".md", "");
+        const filePath = path.join(blogDir, file);
+        const fileContent = await readFile(filePath, "utf-8");
+        const { data: frontmatter } = matter(fileContent);
 
-          const title = frontmatter.title || slug;
-          const date = frontmatter.date ? new Date(frontmatter.date) : new Date();
-          const href = `/blog/${slug}`;
-          const excerpt = frontmatter.excerpt;
-          const category = frontmatter.category;
+        const title = frontmatter.title || slug;
+        const date = frontmatter.date ? new Date(frontmatter.date) : new Date();
+        const href = `/blog/${slug}`;
+        const excerpt = frontmatter.excerpt;
+        const category = frontmatter.category;
 
-          return { title, date, href, excerpt, category, slug };
-        }),
+        return { title, date, href, excerpt, category, slug };
+      }),
     );
 
     const sortedArticles = articles.sort((a, b) => b.date.getTime() - a.date.getTime());

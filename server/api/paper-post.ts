@@ -4,14 +4,6 @@ import { marked } from "marked";
 import matter from "gray-matter";
 import type { Context } from "hono";
 
-export interface BlogPostData {
-  pageContent: string;
-  title: string;
-  date: Date;
-  excerpt?: string;
-  category?: string;
-}
-
 function getContentDir(): string {
   return path.join(process.cwd(), "content");
 }
@@ -30,26 +22,23 @@ export async function GET(c: Context) {
 
   try {
     const contentDir = getContentDir();
-    const filePath = path.join(contentDir, language, "blog", `${slug}.md`);
+    const filePath = path.join(contentDir, language, "papers", `${slug}.md`);
     const fileContent = await readFile(filePath, "utf-8");
     const { data: frontmatter, content } = matter(fileContent);
     const pageContent = await marked(content);
 
-    if (!pageContent) {
-      throw new Error(`Content for blog post "${slug}" is empty`);
-    }
-
-    const postData: BlogPostData = {
+    return c.json({
       pageContent,
       title: frontmatter.title || slug,
-      date: frontmatter.date ? new Date(frontmatter.date) : new Date(),
-      excerpt: frontmatter.excerpt,
+      authors: frontmatter.authors || "",
+      year: frontmatter.year || new Date().getFullYear(),
+      venue: frontmatter.venue,
+      doi: frontmatter.doi,
+      url: frontmatter.url,
       category: frontmatter.category,
-    };
-
-    return c.json(postData);
+    });
   } catch (error) {
-    console.error(`Blog post not found: ${language}/blog/${slug}.md`, error);
-    return c.json({ error: `Blog post "${slug}" not found for language "${language}"` }, 404);
+    console.error(`Paper not found: ${language}/papers/${slug}.md`, error);
+    return c.json({ error: `Paper "${slug}" not found` }, 404);
   }
 }
