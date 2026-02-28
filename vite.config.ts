@@ -15,24 +15,19 @@ import type { Plugin } from "vite";
  * the build is invoked (npx vite build, npm run build, etc.)
  */
 function generateContentPlugin(): Plugin {
-  let isSSR = false;
   return {
     name: "generate-content",
-    configResolved(config) {
-      isSSR = !!config.build?.ssr;
-    },
-    closeBundle() {
-      // Only run after the client build (first pass), not SSR build
-      if (!isSSR) {
-        console.log("\n📦 Generating static content data...");
-        try {
-          execSync("node scripts/generate-content.mjs", {
-            stdio: "inherit",
-            cwd: process.cwd(),
-          });
-        } catch (e) {
-          console.error("⚠️ Content generation failed, but build continues:", e);
-        }
+    buildStart() {
+      // Run at build start so the generated JSON files in public/data/
+      // are picked up by Vite as static assets
+      console.log("\n📦 Generating static content data...");
+      try {
+        execSync("node scripts/generate-content.mjs", {
+          stdio: "inherit",
+          cwd: process.cwd(),
+        });
+      } catch (e) {
+        console.error("⚠️ Content generation failed, but build continues:", e);
       }
     },
   };

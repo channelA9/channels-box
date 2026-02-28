@@ -134,6 +134,9 @@ dist
 # Cloudflare
 .wrangler/
 
+# Generated content data (rebuilt by Vite plugin)
+public/data/
+
 # Vercel
 .vercel/
 

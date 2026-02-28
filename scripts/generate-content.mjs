@@ -15,7 +15,9 @@ import { marked } from "marked";
 
 const ROOT = process.cwd();
 const CONTENT_DIR = path.join(ROOT, "content");
-const OUTPUT_DIR = path.join(ROOT, "dist", "client", "data");
+// Output to public/data — Vite serves these as static assets and vike-cloudflare
+// automatically copies them to dist/cloudflare/ and excludes from worker routing
+const OUTPUT_DIR = path.join(ROOT, "public", "data");
 
 const LANGUAGES = ["en", "jp"];
 
