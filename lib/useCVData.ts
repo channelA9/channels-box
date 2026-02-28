@@ -1,4 +1,4 @@
-import { ref, computed, watch } from "vue";
+import { ref, watch } from "vue";
 import { useLanguage } from "./useLanguage";
 
 export interface CVData {
@@ -30,10 +30,22 @@ export interface CVData {
     date: string;
     description: string;
   }>;
-  skills: Array<{ category: string; items: string }>;
-  coursework: Array<{ category: string; items: string[] }>;
-  awards: Array<{ name: string; details: string[] }>;
-  languages: Array<{ name: string; proficiency: string }>;
+  skills: Array<{
+    category: string;
+    items: string;
+  }>;
+  coursework: Array<{
+    category: string;
+    items: string[];
+  }>;
+  awards: Array<{
+    name: string;
+    details: string[];
+  }>;
+  languages: Array<{
+    name: string;
+    proficiency: string;
+  }>;
   extracurricular: Array<{
     name: string;
     description: string;
@@ -50,11 +62,20 @@ async function loadCVData(): Promise<CVData | null> {
 
   try {
     isLoading.value = true;
-    const response = await fetch("/api/cv-data");
-    if (!response.ok) throw new Error(`Failed to load CV data: ${response.statusText}`);
-    const data = await response.json();
+
+    // Try static JSON first (production), then API (dev)
+    let data: any;
+    const staticRes = await fetch("/data/cv.json");
+    if (staticRes.ok) {
+      data = await staticRes.json();
+    } else {
+      const apiRes = await fetch("/api/cv-data");
+      if (!apiRes.ok) throw new Error("Failed to load CV data");
+      data = await apiRes.json();
+    }
+
     cvCache.value = data;
-    return data;
+    return cvCache.value;
   } catch (error) {
     console.error("Error loading CV data:", error);
     return null;
@@ -66,7 +87,7 @@ async function loadCVData(): Promise<CVData | null> {
 export function useCVData() {
   const cvData = ref<CVData | null>(null);
 
-  // Load on first use
+  // Load once
   if (typeof window !== "undefined") {
     loadCVData().then((data) => {
       cvData.value = data;
@@ -74,7 +95,7 @@ export function useCVData() {
   }
 
   return {
-    cvData: computed(() => cvData.value),
-    isLoading: computed(() => isLoading.value),
+    cvData,
+    isLoading,
   };
 }

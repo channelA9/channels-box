@@ -29,11 +29,18 @@ async function loadPapersData(language: Language): Promise<PaperArticle[]> {
 
   try {
     isLoading.value = true;
-    const response = await fetch(`/api/papers-data?lang=${language}`);
-    if (!response.ok) {
-      throw new Error(`Failed to load papers data: ${response.statusText}`);
+
+    // Try static JSON first (production), then API (dev)
+    let data: any;
+    const staticRes = await fetch(`/data/papers-${language}.json`);
+    if (staticRes.ok) {
+      data = await staticRes.json();
+    } else {
+      const apiRes = await fetch(`/api/papers-data?lang=${language}`);
+      if (!apiRes.ok) throw new Error(`Failed to load papers data: ${apiRes.statusText}`);
+      data = await apiRes.json();
     }
-    const data = await response.json();
+
     papersCache.value[language] = data.papers || [];
     return papersCache.value[language];
   } catch (error) {

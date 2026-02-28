@@ -29,10 +29,7 @@ const blogCache = ref<Record<Language, BlogArticle[]>>({
 const isLoading = ref(false);
 
 async function loadBlogData(language: Language): Promise<BlogArticle[]> {
-  // Only run on client side
-  if (typeof window === "undefined") {
-    return [];
-  }
+  if (typeof window === "undefined") return [];
 
   if (blogCache.value[language].length > 0) {
     return blogCache.value[language];
@@ -40,15 +37,22 @@ async function loadBlogData(language: Language): Promise<BlogArticle[]> {
 
   try {
     isLoading.value = true;
-    const response = await fetch(`/api/blog-data?lang=${language}`);
-    if (!response.ok) {
-      throw new Error(`Failed to load blog data: ${response.statusText}`);
+
+    // Try static JSON first (production), then API (dev)
+    let data: any;
+    const staticRes = await fetch(`/data/blog-${language}.json`);
+    if (staticRes.ok) {
+      data = await staticRes.json();
+      data.articles = data.posts; // normalize key name
+    } else {
+      const apiRes = await fetch(`/api/blog-data?lang=${language}`);
+      if (!apiRes.ok) throw new Error(`Failed to load blog data: ${apiRes.statusText}`);
+      data = await apiRes.json();
     }
-    const data = await response.json();
-    // Convert date strings to Date objects
-    const articles = (data.articles || []).map((article: any) => ({
+
+    const articles = (data.articles || data.posts || []).map((article: any) => ({
       ...article,
-      date: new Date(article.date).setHours(12, 0, 0, 0), // Normalize time to avoid timezone issues
+      date: new Date(new Date(article.date).setHours(12, 0, 0, 0)),
     }));
     blogCache.value[language] = articles;
     return blogCache.value[language];
@@ -65,9 +69,7 @@ export function useBlogData() {
   const articles = ref<BlogArticle[]>([]);
 
   const blogArticles = computed(() => {
-    if (!articles.value || articles.value.length === 0) {
-      return [];
-    }
+    if (!articles.value || articles.value.length === 0) return [];
     return articles.value.sort((a, b) => {
       const dateA = a.date instanceof Date ? a.date : new Date(a.date);
       const dateB = b.date instanceof Date ? b.date : new Date(b.date);
@@ -76,11 +78,10 @@ export function useBlogData() {
   });
 
   const recentBlogPost = computed(() => {
-    const sortedArticles = blogArticles.value;
-    return sortedArticles.length > 0 ? sortedArticles[0] : null;
+    const sorted = blogArticles.value;
+    return sorted.length > 0 ? sorted[0] : null;
   });
 
-  // Load data when language changes
   watch(
     language,
     async (newLang) => {

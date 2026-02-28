@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "vike dev",
-    "build": "vike build",
+    "build": "vike build && node scripts/generate-content.mjs",
     "postbuild": "cpx \"content/**/*\" dist/server/content",
     "preview": "run-s build preview:wrangler",
     "lint": "eslint .",

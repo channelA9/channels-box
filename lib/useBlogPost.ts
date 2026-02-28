@@ -26,14 +26,20 @@ async function loadBlogPost(slug: string, language: Language): Promise<BlogPostD
 
   try {
     isLoading.value = true;
-    const response = await fetch(`/api/blog-post?slug=${slug}&lang=${language}`);
-    if (!response.ok) {
-      if (response.status === 404) {
-        return null;
+
+    // Try static JSON first (production), then API (dev)
+    let data: any;
+    const staticRes = await fetch(`/data/blog-post-${language}-${slug}.json`);
+    if (staticRes.ok) {
+      data = await staticRes.json();
+    } else {
+      const apiRes = await fetch(`/api/blog-post?slug=${slug}&lang=${language}`);
+      if (!apiRes.ok) {
+        if (apiRes.status === 404) return null;
+        throw new Error(`Failed to load blog post: ${apiRes.statusText}`);
       }
-      throw new Error(`Failed to load blog post: ${response.statusText}`);
+      data = await apiRes.json();
     }
-    const data = await response.json();
 
     if (!postCache.value[slug]) {
       postCache.value[slug] = {};

@@ -26,9 +26,17 @@ async function loadPaper() {
   if (typeof window === "undefined") return;
   try {
     isLoading.value = true;
-    const res = await fetch(`/api/paper-post?slug=${slug}&lang=${language.value}`);
-    if (!res.ok) throw new Error("Not found");
-    paper.value = await res.json();
+    // Try static JSON first (production), then API (dev)
+    let data: any;
+    const staticRes = await fetch(`/data/paper-post-${language.value}-${slug}.json`);
+    if (staticRes.ok) {
+      data = await staticRes.json();
+    } else {
+      const apiRes = await fetch(`/api/paper-post?slug=${slug}&lang=${language.value}`);
+      if (!apiRes.ok) throw new Error("Not found");
+      data = await apiRes.json();
+    }
+    paper.value = data;
   } catch (e) {
     console.error("Failed to load paper:", e);
     paper.value = null;
