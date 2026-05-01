@@ -8,7 +8,7 @@ education:
   - institution: California State University, San Bernardino
     location: San Bernardino, CA
     degree: Computer Science (B.S. expected December 2026)
-    gpa: "3.87"
+    gpa: "3.89"
     dates: Aug 2024 - Present
 
   - institution: International Christian University
@@ -24,6 +24,11 @@ education:
     dates: Aug 2022 - May 2023
 
 experience:
+  - title: Fulbright-Mitacs Globalink Research Intern
+    organization: Simon Fraser University
+    location: Surrey, BC, Canada
+    dates: May 2026 - Aug 2026
+
   - title: Undergraduate Research Assistant
     organization: California State University, San Bernardino
     location: San Bernardino, CA
@@ -36,9 +41,10 @@ experience:
 
 research:
   - citation: >
-      Colegado, S., Jin, J., Hou, Y. (2025). "Faithful or Plausible? 
+      Colegado, S., Jin, J., Hou, Y. (2026). "Faithful or Plausible? 
       A Counterfactual Analysis of LLM-Generated Explanations for Machine 
-      Learning Models" (Submitted to IEEE ICSC 2026).
+      Learning Models." In IEEE International Conference on Semantic 
+      Computing (ICSC).
 
 presentations:
   - citation: >
@@ -100,6 +106,9 @@ coursework:
       - Intercultural Communication
 
 awards:
+  - name: 2026 CSUSB Outstanding Student Research Award Nominee
+    details:
+      - 1 undergraduate selected university-wide annually
   - name: Dean's Honor List
     details:
       - "CSUSB: Fall 2024, Spring 2025"

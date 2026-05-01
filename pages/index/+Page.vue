@@ -89,12 +89,34 @@ const bioParagraphs = computed(() =>
         <a href="/papers" class="text-xs text-text-muted hover:text-text transition-colors">{{ t.home.viewAll }}</a>
       </div>
       <div v-if="papersLoading" class="text-sm text-text-light">Loading...</div>
-      <ul v-else-if="recentPapers.length > 0" class="space-y-3">
+      <ul v-else-if="recentPapers.length > 0" class="space-y-4">
         <li v-for="paper in recentPapers" :key="paper.slug">
-          <a :href="paper.doi || paper.url || `/papers/${paper.slug}`" :target="(paper.doi || paper.url) ? '_blank' : undefined" class="block group cursor-pointer">
-            <span class="font-medium group-hover:text-accent transition-colors">{{ paper.title }}</span>
-            <p class="text-xs text-text-light mt-0.5">{{ paper.authors }} · {{ paper.year }}</p>
-          </a>
+          <div>
+            <span
+              v-if="paper.category"
+              class="inline-block text-xs font-semibold text-white bg-accent px-2 py-0.5 rounded mb-1"
+            >{{ paper.category }}</span>
+            <a
+              :href="paper.doi || paper.url || `/papers/${paper.slug}`"
+              :target="(paper.doi || paper.url) ? '_blank' : undefined"
+              class="font-medium hover:text-accent transition-colors"
+            >{{ paper.title }}</a>
+            <p class="text-xs text-text-light mt-0.5">{{ paper.authors }} · {{ paper.year }}{{ paper.venue ? ` · ${paper.venue}` : '' }}</p>
+            <div class="flex items-center gap-2 mt-2">
+              <a
+                v-if="paper.doi"
+                :href="paper.doi"
+                target="_blank"
+                class="paper-link-btn"
+              >DOI</a>
+              <a
+                v-if="paper.url"
+                :href="paper.url"
+                target="_blank"
+                class="paper-link-btn"
+              >IEEE</a>
+            </div>
+          </div>
         </li>
       </ul>
       <p v-else class="text-sm text-text-light">{{ t.home.noPapers }}</p>
@@ -110,5 +132,24 @@ const bioParagraphs = computed(() =>
 }
 .bio-content :deep(a:hover) {
   opacity: 0.8;
+}
+.paper-link-btn {
+  display: inline-block;
+  padding: 4px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-text, #100C08);
+  background-color: var(--color-bg-card, #ffffff);
+  border: 1px solid var(--color-border, #98817B);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+.paper-link-btn:hover {
+  background-color: var(--color-accent, #660000);
+  border-color: var(--color-accent, #660000);
+  color: #fff;
 }
 </style>

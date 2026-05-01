@@ -1,3 +1,6 @@
+# temp ignores
+public/mika
+pages/mika-demo
 # Logs
 logs
 *.log

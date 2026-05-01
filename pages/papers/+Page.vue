@@ -77,14 +77,14 @@ const filteredPapersByYear = computed(() => {
                       v-if="paper.doi"
                       :href="paper.doi"
                       target="_blank"
-                      class="text-xs font-medium text-accent hover:underline"
+                      class="paper-link-btn"
                     >DOI</a>
                     <a
                       v-if="paper.url"
                       :href="paper.url"
                       target="_blank"
-                      class="text-xs font-medium text-accent hover:underline"
-                    >Link</a>
+                      class="paper-link-btn"
+                    >IEEE</a>
                   </div>
                 </div>
               </div>
@@ -98,3 +98,25 @@ const filteredPapersByYear = computed(() => {
     <p v-else class="text-sm text-text-light py-8">{{ t.papers.noPapers }}</p>
   </div>
 </template>
+
+<style scoped>
+.paper-link-btn {
+  display: inline-block;
+  padding: 4px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-text, #100C08);
+  background-color: var(--color-bg-card, #ffffff);
+  border: 1px solid var(--color-border, #98817B);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+.paper-link-btn:hover {
+  background-color: var(--color-accent, #660000);
+  border-color: var(--color-accent, #660000);
+  color: #fff;
+}
+</style>

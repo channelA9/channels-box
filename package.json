@@ -9,6 +9,7 @@
     "deploy": "run-s build deploy:wrangler"
   },
   "dependencies": {
+    "@google/genai": "^1.48.0",
     "@hono/node-server": "^1.14.1",
     "@types/js-yaml": "^4.0.9",
     "@universal-middleware/core": "^0.4.7",
