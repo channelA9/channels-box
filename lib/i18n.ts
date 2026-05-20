@@ -76,7 +76,7 @@ export const translations: Record<Language, Translations> = {
       profile: {
         name: "Shaun Colegado",
         title: "CS Researcher & Web Developer",
-        bio: "I'm an undergraduate researcher at the [Leonard Transportation Center](https://www.csusb.edu/leonard-transportation-center) at CSUSB under [Dr. Yunfei Hou](https://sites.google.com/site/yunfeihouhomepage/). My interests are in Human-Computer Interaction, Human-AI trust, and web technologies. \n I previously assisted with psychology research at International Christian University in Tokyo.",
+        bio: "I am an undergraduate researcher at the [Leonard Transportation Center](https://www.csusb.edu/leonard-transportation-center) at CSUSB under [Dr. Yunfei Hou](https://sites.google.com/site/yunfeihouhomepage/). I'm currently working over the summer as a visiting research intern at the [VVISE Lab](https://vvise.iat.sfu.ca/) at Simon Fraser University in Vancouver, Canada under [Dr. Wolfgang Stuerzlinger](https://vvise.iat.sfu.ca/people/wolfgang-stuerzlinger) via the Fulbright-Mitacs Global Research Internship. My research interests include Human-Computer Interaction, Human-AI trust, and web technologies. \nI also previously assisted with psychology research at [International Christian University](https://www.icu.ac.jp/en/) in Tokyo.",
       },
     },
     blog: {
@@ -132,7 +132,7 @@ export const translations: Record<Language, Translations> = {
       profile: {
         name: "ショーン・コレガド",
         title: "CS研究者 & ウェブ開発者",
-        bio: "California State University, San Bernardinoの[Leonard Transportation Center](https://www.csusb.edu/leonard-transportation-center)にて、[Yunfei Hou博士](https://sites.google.com/site/yunfeihouhomepage/)の下で学部研究者を務めています。ヒューマン・コンピュータ・インタラクション、人間とAIの信頼、およびウェブ技術に関心があります。\n 以前は、東京の国際基督教大学（ICU）で心理学研究の助手を務めていました。",
+        bio: "私はカリフォルニア州立大学サンバーナーディーノ校（CSUSB）の[Leonard Transportation Center](https://www.csusb.edu/leonard-transportation-center)にて、[Yunfei Hou博士](https://sites.google.com/site/yunfeihouhomepage/)の指導の下で学部研究員を務めています。現在は、Fulbright-Mitacs Global Research Internshipプログラムを通じて、カナダのバンクーバーにあるサイモンフレーザー大学（SFU）の[VVISE Lab](https://vvise.iat.sfu.ca/)にて、[Wolfgang Stuerzlinger博士](https://vvise.iat.sfu.ca/people/wolfgang-stuerzlinger)の指導の下で客員研究員として勤務しています。私の研究対象は、ヒューマン・コンピュータ・インタラクション、人間とAIの信頼、ウェブ技術です。\nまた、以前は東京の国際基督教大学（ICU）で心理学分野の学術アシスタントを務めていました。",
       },
     },
     blog: {
