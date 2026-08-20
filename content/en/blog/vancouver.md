@@ -1,10 +1,10 @@
 ---
 title: Back from Vancouver!
 date: 2026-08-20
-excerpt: Mitacs Globalink Research Internship!
+excerpt: Completed my Mitacs Globalink Research Internship!
 category: Update
 ---
-![Picture of me near Waterfront](/images/blog/vancouver.webp)
+![Picture of me near Waterfront](/photos/blog/vancouver.webp)
 
 It’s been fun, Vancouver!
 
