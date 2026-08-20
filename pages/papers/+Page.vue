@@ -59,10 +59,6 @@ const filteredPapersByYear = computed(() => {
             >
               <div class="flex items-start gap-4">
                 <div class="flex-grow">
-                  <span
-                    v-if="paper.category"
-                    class="inline-block text-xs font-semibold text-white bg-accent px-2 py-0.5 rounded mb-1"
-                  >{{ paper.category }}</span>
                   <h3 class="font-bold text-base">
                     <a
                       :href="paper.doi || paper.url || `/papers/${paper.slug}`"
@@ -72,20 +68,6 @@ const filteredPapersByYear = computed(() => {
                   </h3>
                   <p class="text-sm text-text-muted mt-1">{{ paper.authors }}</p>
                   <p class="text-xs text-text-light mt-0.5">{{ paper.year }}{{ paper.venue ? ` · ${paper.venue}` : '' }}</p>
-                  <div class="flex items-center gap-2 mt-2">
-                    <a
-                      v-if="paper.doi"
-                      :href="paper.doi"
-                      target="_blank"
-                      class="paper-link-btn"
-                    >DOI</a>
-                    <a
-                      v-if="paper.url"
-                      :href="paper.url"
-                      target="_blank"
-                      class="paper-link-btn"
-                    >IEEE</a>
-                  </div>
                 </div>
               </div>
             </div>

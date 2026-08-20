@@ -20,9 +20,6 @@ onMounted(() => {
       <h1 class="text-lg font-bold tracking-tight">{{ t.home.profile.name }}</h1>
       <h2 class="text-sm text-neutral-500">{{ t.home.profile.title }}</h2>
     </div>
-    <div>
-      <p class="text-xs text-neutral-500">{{ t.home.profile.status }}</p>
-    </div>
     <div class="flex items-center gap-2 text-neutral-500">
       <a class="hover:text-black transition-colors" href="https://github.com/channelA9"
         ><OhVueIcon name="ri-github-fill"

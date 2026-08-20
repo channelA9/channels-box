@@ -1,11 +1,15 @@
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import type { Language, Translations } from "./i18n";
 import { getTranslations } from "./i18n";
 
 const currentLanguage = ref<Language>("en");
 let initialized = false;
 
-// Auto-initialize on first import (SSR-safe)
+// Reset initialized on server so SSR never marks it done across requests
+if (typeof window === "undefined") {
+  initialized = false;
+}
+
 function autoInit() {
   if (initialized) return;
   if (typeof window === "undefined") return;
@@ -45,13 +49,16 @@ export function useLanguage() {
     setLanguage(currentLanguage.value === "en" ? "jp" : "en");
   };
 
-  // Keep initLanguage for backward compat, but it now just calls autoInit
   const initLanguage = () => {
     autoInit();
   };
 
-  // Auto-init when composable is first used
-  autoInit();
+  // Defer language init to after hydration to avoid SSR mismatch.
+  // SSR and hydration both render with "en" (the default), then Vue
+  // cleanly updates to the stored preference once the DOM is mounted.
+  onMounted(() => {
+    autoInit();
+  });
 
   return {
     language,

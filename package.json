@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "vike dev",
+    "dev": "vite dev",
     "build": "vike build",
     "preview": "run-s build preview:wrangler",
     "lint": "eslint .",

@@ -13,6 +13,10 @@ const isMenuOpen = ref(false);
 
 onMounted(() => {
   isClient.value = true;
+  // Remove the loading guard set by the blocking script in +Head.vue.
+  // By this point, onMounted in useLanguage + useTheme have already fired
+  // (same tick), so the correct language/theme state is applied before reveal.
+  document.documentElement.removeAttribute('data-loading');
 });
 
 const toggleMenu = () => {
@@ -44,10 +48,11 @@ const disableMenu = () => {
 
         <!-- Language toggle -->
         <button
-          class="px-2 py-1 text-xs border border-border rounded hover:bg-bg-card transition-colors font-medium text-text-muted"
+          class="px-2 py-1 text-xs hover:bg-bg-card transition-colors font-medium text-text-muted"
           @click="toggleLanguage"
         >
-          {{ language === "en" ? "JP" : "EN" }}
+          <img v-if="language == 'en'" src="/icons/en.webp" alt="EN" class="h-4">
+          <img v-else src="/icons/ja.webp" alt="JA" class="h-4">
         </button>
 
         <!-- Theme toggle: system → light → dark (client-only) -->
@@ -118,7 +123,8 @@ const disableMenu = () => {
           class="mt-6 px-4 py-2 border border-border rounded hover:bg-bg-card transition-colors text-sm font-medium"
           @click="toggleLanguage"
         >
-          {{ language === "en" ? "JP" : "EN" }}
+          <img v-if="language == 'en'" src="/icons/en.webp" alt="EN" class="h-4">
+          <img v-else src="/icons/ja.webp" alt="JA" class="h-4">
         </button>
       </div>
     </header>

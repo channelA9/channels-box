@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 
 export type ThemePreference = "system" | "light" | "dark";
 
@@ -40,7 +40,12 @@ function initTheme() {
 }
 
 export function useTheme() {
-  initTheme();
+  // Defer theme init to after hydration — the blocking script in +Head.vue
+  // already applied the correct class before first paint. This just syncs
+  // the reactive state without causing a hydration mismatch.
+  onMounted(() => {
+    initTheme();
+  });
 
   const isDark = computed(() => resolveTheme(currentPreference.value) === "dark");
 

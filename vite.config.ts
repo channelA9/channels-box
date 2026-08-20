@@ -44,8 +44,12 @@ export default defineConfig({
         /.*\.(ts|tsx|vue)($|\?)/,
         /.*\.(s?css|less)($|\?)/,
         /^\/favicon\.ico$/,
-        /.*\.(svg|png)($|\?)/,
+        /.*\.(svg|png|webp|jpg|jpeg|gif|ico)($|\?)/,
         /^\/(public|assets|static)\/.+/,
+        /^\/data\/.+/,
+        /^\/icons\/.+/,
+        /^\/photos\/.+/,
+        /^\/mika\/.+/,
         /^\/node_modules\/.*/,
       ],
 
