@@ -132,11 +132,7 @@ export const translations: Record<Language, Translations> = {
       profile: {
         name: "ショーン・コレガド",
         title: "CS研究者 & ウェブ開発者",
-<<<<<<< HEAD
         bio: "私はカリフォルニア州立大学サンバーナーディーノ校の[Leonard Transportation Center](https://www.csusb.edu/leonard-transportation-center)にて[Yunfei Hou博士](https://sites.google.com/site/yunfeihouhomepage/)の指導の下で学部研究者を務めています。以前は、Mitacs Globalink Research Intern として[VVISE Lab](https://www.sfu.ca/vvise/vvise.html)にて[Wolfgang Stuerzlinger博士](https://www.sfu.ca/siat/people/research-faculty/wolfgang-stuerzlinger.html)のもとで働いていた。また、[国際基督教大学](https://www.icu.ac.jp/)では心理学研究の助手として研究に従事していました。私の研究関心は、Social Informatics、Human-Computer Interaction、Human-AI Interaction、Embodied AI、およびWeb技術です。",
-=======
-        bio: "私はカリフォルニア州立大学サンバーナーディーノ校（CSUSB）の[Leonard Transportation Center](https://www.csusb.edu/leonard-transportation-center)にて、[Yunfei Hou博士](https://sites.google.com/site/yunfeihouhomepage/)の指導の下で学部研究員を務めています。現在は、Fulbright-Mitacs Global Research Internshipプログラムを通じて、カナダのバンクーバーにあるサイモンフレーザー大学（SFU）の[VVISE Lab](https://vvise.iat.sfu.ca/)にて、[Wolfgang Stuerzlinger博士](https://vvise.iat.sfu.ca/people/wolfgang-stuerzlinger)の指導の下で客員研究員として勤務しています。私の研究対象は、ヒューマン・コンピュータ・インタラクション、人間とAIの信頼、ウェブ技術です。\nまた、以前は東京の国際基督教大学（ICU）で心理学分野の学術アシスタントを務めていました。",
->>>>>>> f010de8c92f1e87a812887110773e49f85a385cb
       },
     },
     blog: {
