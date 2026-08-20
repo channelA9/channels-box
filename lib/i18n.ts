@@ -76,11 +76,7 @@ export const translations: Record<Language, Translations> = {
       profile: {
         name: "Shaun Colegado",
         title: "CS Researcher & Web Developer",
-<<<<<<< HEAD
         bio: "I'm an undergraduate researcher at the [Leonard Transportation Center](https://www.csusb.edu/leonard-transportation-center) at CSUSB under [Dr. Yunfei Hou](https://sites.google.com/site/yunfeihouhomepage/). I also previously worked as a Mitacs Globalink Research Intern at the [VVISE Lab](https://www.sfu.ca/vvise/vvise.html) under [Dr. Wolfgang Stuerzlinger](https://www.sfu.ca/siat/people/research-faculty/wolfgang-stuerzlinger.html) and as an informal research assistant at [International Christian University](https://www.icu.ac.jp/en/). My research interests are in Social Informatics, Human-Computer Interaction, Human-AI interaction, embodied AI, and web technologies.",
-=======
-        bio: "I am an undergraduate researcher at the [Leonard Transportation Center](https://www.csusb.edu/leonard-transportation-center) at CSUSB under [Dr. Yunfei Hou](https://sites.google.com/site/yunfeihouhomepage/). I'm currently working over the summer as a visiting research intern at the [VVISE Lab](https://vvise.iat.sfu.ca/) at Simon Fraser University in Vancouver, Canada under [Dr. Wolfgang Stuerzlinger](https://vvise.iat.sfu.ca/people/wolfgang-stuerzlinger) via the Fulbright-Mitacs Global Research Internship. My research interests include Human-Computer Interaction, Human-AI trust, and web technologies. \nI also previously assisted with psychology research at [International Christian University](https://www.icu.ac.jp/en/) in Tokyo.",
->>>>>>> f010de8c92f1e87a812887110773e49f85a385cb
       },
     },
     blog: {
